@@ -19,23 +19,13 @@ export const reducer = (state, action) => {
           id: uuid()
         }
       ]
-    // case "TOGGLE_COMPLETED":
-    //   console.log('Task clicked!')
-    //   // return state
-    // case "TOGGLE_COMPLETED":
-    //   const modifiedTask = {
-    //     ...action.payload,
-    //     completed: !action.payload.completed
-    //   }
-    //   return [
-    //     ...state, //.filter(task => task.id !== action.payload.id), // filter out the state object that needs changes, we don't need the old one anymore
-    //     modifiedTask
-    //   ]
     case "TOGGLE_COMPLETED":
       const newState = state.map(task => {
         if(task.id === action.payload.id) {
-          console.log(`${task.completed}`)
-          task.completed = !task.completed
+          return {
+            ...task,
+            completed: !task.completed
+          }
         }
         return task
       }) // new State
