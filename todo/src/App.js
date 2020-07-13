@@ -1,8 +1,8 @@
 import { v4 as uuid } from 'uuid';
 import React, { useState, useReducer } from 'react';
 import { initialState, reducer } from './reducers/todoReducer'
-import Task from './components/Task'
 import './App.css';
+import styled from 'styled-components'
 
 function App() {
   const [ inputValue, setinputValue ] = useState("")
@@ -23,15 +23,23 @@ function App() {
         setinputValue('')
         }}>Add task</button>
       
-      {/* <Task task={initialState[0]} /> */}
-      {/* {state.map(task => <Task key={uuid()} task={task} onClick={() => {alert('test')}} />)} */}
-      {state.map(task => 
-        <p key={uuid()} onClick={() => {
-          dispatch({ type: "TOGGLE_COMPLETED", payload: task})
-        }}>{task.item} is completed: {task.completed.toString()}</p>
+      {state.map(task => {
+        if(task.completed)
+          return <CheckedP key={uuid()} onClick={() => {
+            dispatch({ type: "TOGGLE_COMPLETED", payload: task})
+          }}>{task.item} is completed: {task.completed.toString()}</CheckedP>
+        else
+          return <p key={uuid()} onClick={() => {
+            dispatch({ type: "TOGGLE_COMPLETED", payload: task})
+          }}>{task.item} is completed: {task.completed.toString()}</p>
+        }
       )}
     </div>
   );
 }
 
 export default App;
+
+const CheckedP = styled.p`
+  text-decoration: line-through;
+`
