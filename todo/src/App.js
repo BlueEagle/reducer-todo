@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid';
 import React, { useState, useReducer } from 'react';
 import { initialState, reducer } from './reducers/todoReducer'
 import Task from './components/Task'
@@ -13,6 +14,7 @@ function App() {
     setinputValue(e.target.value)
   }
 
+
   return (
     <div className="App">
       <input type="text" name="taskEntry" value={inputValue} onChange={handleChanges} />
@@ -20,7 +22,14 @@ function App() {
         dispatch({ type: "ADD_TASK", payload: inputValue })
         setinputValue('')
         }}>Add task</button>
-      {state.map(task => <Task task={task}/>)}
+      
+      {/* <Task task={initialState[0]} /> */}
+      {/* {state.map(task => <Task key={uuid()} task={task} onClick={() => {alert('test')}} />)} */}
+      {state.map(task => 
+        <p key={uuid()} onClick={() => {
+          dispatch({ type: "TOGGLE_COMPLETED", payload: task})
+        }}>{task.item} is completed: {task.completed.toString()}</p>
+      )}
     </div>
   );
 }
