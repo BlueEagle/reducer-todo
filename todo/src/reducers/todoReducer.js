@@ -1,12 +1,10 @@
 import { v4 as uuid } from 'uuid';
 
-export const initialState = [
-  {
-    item: 'Learn about reducers',
-    completed: false,
-    id: 3892987589
-  }
-]
+export const initialState =   {
+  item: 'Learn about reducers',
+  completed: false,
+  id: 3892987589
+}
 
 export const reducer = (state, action) => {
   switch(action.type) {
@@ -19,6 +17,8 @@ export const reducer = (state, action) => {
           id: uuid()
         }
       ]
+    case "CLEAR_TASKS":
+      return state.filter(task => !task.completed)
     case "TOGGLE_COMPLETED":
       const newState = state.map(task => {
         if(task.id === action.payload.id) {
@@ -30,6 +30,9 @@ export const reducer = (state, action) => {
         return task
       }) // new State
       return newState
+    case "CLEAR_ALL":
+      console.log('test')
+      return []
     default:
       return state
   }
